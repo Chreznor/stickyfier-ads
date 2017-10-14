@@ -23,6 +23,6 @@ app.get('/', function (req, res) {
 // Configure port
 const port = 8080;
 // Listen to port
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
   console.log(`Server is running on port: ${port}`);
 });
