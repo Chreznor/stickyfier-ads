@@ -99,23 +99,23 @@
 // };
 //generateEntries();
 
+//importing the stickyfier module
+var stickyfier = __webpack_require__(1);
+
 var initializeBtn = document.querySelector('#initialize');
 var disableBtn = document.querySelector('#disable');
-var crosses = document.querySelectorAll('.cross');
-console.log(crosses);
+var crosses = document.querySelectorAll('.cross-container');
 
 var headlineContainers = document.querySelectorAll('.headline-container');
 var listContainers = document.querySelectorAll('.list-container');
 
-//importing the stickyfier module
-var stickyfier = __webpack_require__(1);
 //getting the object with the functions
 var methods = stickyfier(headlineContainers, listContainers);
 console.log(methods);
 
-crosses.forEach(function (cross) {
-  return cross.addEventListener('click', methods.removeSticky);
-});
+for (var i = 0; i < crosses.length; i++) {
+  crosses[i].addEventListener('click', methods.removeSticky);
+}
 initializeBtn.addEventListener('click', methods.initialize);
 disableBtn.addEventListener('click', methods.disable);
 
@@ -178,16 +178,19 @@ var stickyfier = function stickyfier(headlineContainers, listContainers) {
       window.removeEventListener('scroll', handler);
       preventFire = false;
       //once the event lisntener is removed, the attached classes have to go too
-      headlineContainers.forEach(function (element) {
-        element.classList.remove('fixed-nav');
-      });
       //restoring the listContainers' padding
-      listContainers.forEach(function (listEntry) {
-        listEntry.style.paddingTop = 0;
-      });
+
+      for (var i = 0; i < headlineContainers.length; i++) {
+        headlineContainers[i].classList.remove('fixed-nav');
+        listContainers[i].style.paddingTop = 0;
+      }
     },
     removeSticky: function removeSticky(e) {
       e.target.parentElement.style.display = 'none';
+      for (var i = 0; i < headlineContainers.length; i++) {
+        headlineContainers[i].classList.remove('fixed-nav');
+        listContainers[i].style.paddingTop = 0;
+      }
     }
   };
 };

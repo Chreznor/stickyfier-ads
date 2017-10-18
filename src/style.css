@@ -1,5 +1,6 @@
 html {
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     font-family: 'helvetica neue';
     font-size: 20px;
     font-weight: 200;
@@ -7,7 +8,8 @@ html {
 *,
 *:before,
 *:after {
-    box-sizing: inherit;
+    -webkit-box-sizing: inherit;
+            box-sizing: inherit;
     margin: 0;
     padding: 0;
 }
@@ -27,13 +29,18 @@ html {
     position: relative;
 }
 .headline-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     text-align: center;
     width: 100%;
     height: 100px;
-    padding: 20px 0;
 }
 .headline-container h1 {
     color: white;
@@ -48,16 +55,43 @@ html {
 
 /*cross*/
 
-.cross {
+.cross-container {
     position: absolute;
-    right: -20px;
-    color: black;
-    font-size: 20px;
+    right: 0;
+    height: 100px;
+    width: 10%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    text-align: center;
+    overflow: hidden;
+    visibility: visible;
+    z-index: 2;
+    background: white;
     cursor: pointer;
 }
 
-.cross:hover {
-    transform: scale(1.2);
+.fixed-nav .cross-container {
+    visibility: visible;
+}
+
+.cross {
+    font-size: 20px;
+    pointer-events: none;
+}
+
+.cross-container:hover .cross {
+    -webkit-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+            transform: scale(1.2);
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
     transition: all 0.5s;
 }
 
@@ -111,7 +145,11 @@ html {
 }
 .btn:hover {
     background-color: #069b91;
-    transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+        -ms-transform: scale(1.05);
+            transform: scale(1.05);
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
     transition: all 0.5s;
 }
 .btn:focus {
@@ -130,6 +168,16 @@ html {
 /*Media Query*/
 
 @media screen and (max-width: 1024px) {
+    .headline-container {
+        width: 100%;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .dynamic-content {
+        min-height: 101%;
+    }
+
     .list-container {
         width: 100%;
         padding: 0;
@@ -150,6 +198,7 @@ html {
     }
     .headline-container {
         width: 100%;
+        overflow: hidden;
     }
     .fixed-nav {
         left: 0;
@@ -166,17 +215,17 @@ html {
 }
 @media screen and (max-width: 400px) {
     .list-container {
-        width: 100%;
-        padding: 0 20px;
+        padding: 0;
     }
     .headline-container {
-        width: 100%;
         height: 40px;
     }
     .headline-container h1 {
         font-size: 18px;
     }
     .fixed-nav {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
         left: 0;
         right: 0;
@@ -186,7 +235,7 @@ html {
         font-size: 18px;
     }
     .text-container {
-        padding: 0;
+        padding: 0 20px;
     }
     .text-container p {
         font-size: 16px;

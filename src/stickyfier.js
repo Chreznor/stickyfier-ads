@@ -50,16 +50,19 @@ const stickyfier = (headlineContainers, listContainers) => {
           window.removeEventListener('scroll', handler);
           preventFire = false;
           //once the event lisntener is removed, the attached classes have to go too
-          headlineContainers.forEach(element => {
-            element.classList.remove('fixed-nav');
-          });
           //restoring the listContainers' padding
-          listContainers.forEach(listEntry => {
-              listEntry.style.paddingTop = 0;
-          });
+
+          for (let i = 0; i<headlineContainers.length; i++) {
+            headlineContainers[i].classList.remove('fixed-nav');
+            listContainers[i].style.paddingTop = 0;
+          }
       },
       removeSticky(e) {
         e.target.parentElement.style.display = 'none';
+        for (let i = 0; i<headlineContainers.length; i++) {
+          headlineContainers[i].classList.remove('fixed-nav');
+          listContainers[i].style.paddingTop = 0;
+        }
       }
   }
 

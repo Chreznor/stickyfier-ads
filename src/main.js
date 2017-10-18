@@ -27,20 +27,23 @@
 // };
 //generateEntries();
 
+//importing the stickyfier module
+const stickyfier = require('./stickyfier.js');
+
+
 const initializeBtn = document.querySelector('#initialize');
 const disableBtn = document.querySelector('#disable');
-const crosses = document.querySelectorAll('.cross');
-console.log(crosses);
+const crosses = document.querySelectorAll('.cross-container');
 
 const headlineContainers = document.querySelectorAll('.headline-container');
 const listContainers = document.querySelectorAll('.list-container');
 
-//importing the stickyfier module
-const stickyfier = require('./stickyfier.js');
 //getting the object with the functions
 const methods = stickyfier(headlineContainers, listContainers);
 console.log(methods);
 
-crosses.forEach(cross => cross.addEventListener('click', methods.removeSticky));
+for (let i = 0; i<crosses.length; i++) {
+  crosses[i].addEventListener('click', methods.removeSticky);
+}
 initializeBtn.addEventListener('click', methods.initialize);
 disableBtn.addEventListener('click', methods.disable);
