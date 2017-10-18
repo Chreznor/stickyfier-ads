@@ -29,6 +29,8 @@ function generateEntries() {
 
 const initializeBtn = document.querySelector('#initialize');
 const disableBtn = document.querySelector('#disable');
+const crosses = document.querySelectorAll('.cross');
+console.log(crosses);
 
 const headlineContainers = document.querySelectorAll('.headline-container');
 const listContainers = document.querySelectorAll('.list-container');
@@ -37,5 +39,8 @@ const listContainers = document.querySelectorAll('.list-container');
 const stickyfier = require('./stickyfier.js');
 //getting the object with the functions
 const methods = stickyfier(headlineContainers, listContainers);
+console.log(methods);
+
+crosses.forEach(cross => cross.addEventListener('click', methods.removeSticky));
 initializeBtn.addEventListener('click', methods.initialize);
 disableBtn.addEventListener('click', methods.disable);

@@ -45,6 +45,24 @@ html {
     margin-bottom: 10px;
     font-size: 20px;
 }
+
+/*cross*/
+
+.cross {
+    position: absolute;
+    right: -20px;
+    top: -20px;
+    color: black;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.cross:hover {
+    transform: scale(1.2);
+    transition: all 0.5s;
+}
+
+
 /*Fixed classes*/
 
 .fixed-nav {

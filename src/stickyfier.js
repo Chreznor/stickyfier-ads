@@ -57,6 +57,9 @@ const stickyfier = (headlineContainers, listContainers) => {
           listContainers.forEach(listEntry => {
               listEntry.style.paddingTop = 0;
           });
+      },
+      removeSticky(e) {
+        e.target.parentElement.style.display = 'none';
       }
   }
 
