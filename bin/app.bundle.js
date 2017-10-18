@@ -67,6 +67,9 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
 //It would take a lot of time to create 100 blocks. Therefore, I've made a small function to generate them.
 // function generateEntries() {
 //     const list = document.querySelector('.list');
@@ -96,106 +99,107 @@
 // };
 //generateEntries();
 
-const initializeBtn = document.querySelector('#initialize');
-const disableBtn = document.querySelector('#disable');
-const crosses = document.querySelectorAll('.cross');
+var initializeBtn = document.querySelector('#initialize');
+var disableBtn = document.querySelector('#disable');
+var crosses = document.querySelectorAll('.cross');
 console.log(crosses);
 
-const headlineContainers = document.querySelectorAll('.headline-container');
-const listContainers = document.querySelectorAll('.list-container');
+var headlineContainers = document.querySelectorAll('.headline-container');
+var listContainers = document.querySelectorAll('.list-container');
 
 //importing the stickyfier module
-const stickyfier = __webpack_require__(1);
+var stickyfier = __webpack_require__(1);
 //getting the object with the functions
-const methods = stickyfier(headlineContainers, listContainers);
+var methods = stickyfier(headlineContainers, listContainers);
 console.log(methods);
 
-crosses.forEach(function(cross) {
- cross.addEventListener('click', methods.removeSticky)
+crosses.forEach(function (cross) {
+  cross.addEventListener('click', methods.removeSticky);
 });
 initializeBtn.addEventListener('click', methods.initialize);
 disableBtn.addEventListener('click', methods.disable);
 
-
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-const stickyfier = function(headlineContainers, listContainers) {
+"use strict";
+
+
+var stickyfier = function stickyfier(headlineContainers, listContainers) {
   //The headline container's parent element is also needed to correctly identify the distances between the texts
 
   //the private function that stickyfies the headlines
-  const fixedHeadline = function() {
+  var fixedHeadline = function fixedHeadline() {
 
-      //a for loop is used to keep track of every element in the DOM collection
-      headlineContainers.forEach(function(container, i) {
+    //a for loop is used to keep track of every element in the DOM collection
+    headlineContainers.forEach(function (container, i) {
       //for (let i = 0; i < headlineContainers.length; i++) {
-          const headlineContainer = headlineContainers[i];
-          const headlineContainerTop = headlineContainer.getBoundingClientRect().top + window.scrollY;
-          const listEntry = listContainers[i];
+      var headlineContainer = headlineContainers[i];
+      var headlineContainerTop = headlineContainer.getBoundingClientRect().top + window.scrollY;
+      var listEntry = listContainers[i];
 
-          if (window.scrollY >= (listEntry.getBoundingClientRect().top + window.scrollY)) {
-              //it's really important to add headline container's height to the padding of its parent element
-              //in order to avoid the jumping of the text content once the fixed element leaves the regular DOM flow
-              listEntry.style.paddingTop = headlineContainer.getBoundingClientRect().height + 'px';
-              
-              if(headlineContainers[i - 1] != undefined) {
-                headlineContainers[i - 1].classList.remove('fixed-nav');
-              }
-              
-              headlineContainer.classList.add('fixed-nav');
-          } else {
-              listEntry.style.paddingTop = 0;
-              headlineContainer.classList.remove('fixed-nav');
-          }
-      });
-  }
+      if (window.scrollY >= listEntry.getBoundingClientRect().top + window.scrollY) {
+        //it's really important to add headline container's height to the padding of its parent element
+        //in order to avoid the jumping of the text content once the fixed element leaves the regular DOM flow
+        listEntry.style.paddingTop = headlineContainer.getBoundingClientRect().height + 'px';
 
-  let handler;
+        if (headlineContainers[i - 1] != undefined) {
+          headlineContainers[i - 1].classList.remove('fixed-nav');
+        }
+
+        headlineContainer.classList.add('fixed-nav');
+      } else {
+        listEntry.style.paddingTop = 0;
+        headlineContainer.classList.remove('fixed-nav');
+      }
+    });
+  };
+
+  var handler = void 0;
   //handles the case when initialize is pressed more than once, after which the event listener cannot be removed with disable
-  let preventFire = false;
+  var preventFire = false;
 
   //a quickly done scroll optimization
   function throttle(func, wait) {
-    let time = Date.now();
-    return function() {
-      if ((time + wait - Date.now()) < 0) {
+    var time = Date.now();
+    return function () {
+      if (time + wait - Date.now() < 0) {
         func();
         time = Date.now();
       }
-    }
+    };
   }
 
   //returning two functions that add or remove the event listener to the window scroll
   return {
-      initialize() {
-          if (preventFire === false) {
-            handler = throttle(fixedHeadline, 100);
-            window.addEventListener('scroll', handler);
-          }
-          preventFire = true;
-      },
-      disable() {
-          window.removeEventListener('scroll', handler);
-          preventFire = false;
-          //once the event lisntener is removed, the attached classes have to go too
-          headlineContainers.forEach(function(element) {
-            element.classList.remove('fixed-nav');
-          });
-          //restoring the listContainers' padding
-          listContainers.forEach(function(listEntry) {
-              listEntry.style.paddingTop = 0;
-          });
-      },
-      removeSticky(e) {
-        e.target.parentElement.style.display = 'none';
+    initialize: function initialize() {
+      if (preventFire === false) {
+        handler = throttle(fixedHeadline, 100);
+        window.addEventListener('scroll', handler);
       }
-  }
-
-}
+      preventFire = true;
+    },
+    disable: function disable() {
+      window.removeEventListener('scroll', handler);
+      preventFire = false;
+      //once the event lisntener is removed, the attached classes have to go too
+      headlineContainers.forEach(function (element) {
+        element.classList.remove('fixed-nav');
+      });
+      //restoring the listContainers' padding
+      listContainers.forEach(function (listEntry) {
+        listEntry.style.paddingTop = 0;
+      });
+    },
+    removeSticky: function removeSticky(e) {
+      e.target.parentElement.style.display = 'none';
+    }
+  };
+};
 
 module.exports = stickyfier;
 
-
 /***/ })
 /******/ ]);
+//# sourceMappingURL=app.bundle.js.map
