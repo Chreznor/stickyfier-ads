@@ -110,7 +110,9 @@ const stickyfier = __webpack_require__(1);
 const methods = stickyfier(headlineContainers, listContainers);
 console.log(methods);
 
-crosses.forEach(cross => cross.addEventListener('click', methods.removeSticky));
+crosses.forEach(function(cross) {
+ cross.addEventListener('click', methods.removeSticky)
+});
 initializeBtn.addEventListener('click', methods.initialize);
 disableBtn.addEventListener('click', methods.disable);
 
