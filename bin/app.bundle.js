@@ -133,8 +133,7 @@ var stickyfier = function stickyfier(headlineContainers, listContainers) {
   var fixedHeadline = function fixedHeadline() {
 
     //a for loop is used to keep track of every element in the DOM collection
-    headlineContainers.forEach(function (container, i) {
-      //for (let i = 0; i < headlineContainers.length; i++) {
+    for (var i = 0; i < headlineContainers.length; i++) {
       var headlineContainer = headlineContainers[i];
       var headlineContainerTop = headlineContainer.getBoundingClientRect().top + window.scrollY;
       var listEntry = listContainers[i];
@@ -143,17 +142,12 @@ var stickyfier = function stickyfier(headlineContainers, listContainers) {
         //it's really important to add headline container's height to the padding of its parent element
         //in order to avoid the jumping of the text content once the fixed element leaves the regular DOM flow
         listEntry.style.paddingTop = headlineContainer.getBoundingClientRect().height + 'px';
-
-        if (headlineContainers[i - 1] != undefined) {
-          headlineContainers[i - 1].classList.remove('fixed-nav');
-        }
-
         headlineContainer.classList.add('fixed-nav');
       } else {
         listEntry.style.paddingTop = 0;
         headlineContainer.classList.remove('fixed-nav');
       }
-    });
+    }
   };
 
   var handler = void 0;

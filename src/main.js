@@ -42,7 +42,7 @@ const methods = stickyfier(headlineContainers, listContainers);
 console.log(methods);
 
 crosses.forEach(function(cross) {
- cross.addEventListener('click', methods.removeSticky)
+ cross.addEventListener('click', methods.removeSticky);
 });
 initializeBtn.addEventListener('click', methods.initialize);
 disableBtn.addEventListener('click', methods.disable);
