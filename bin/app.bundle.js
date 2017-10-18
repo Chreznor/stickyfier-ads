@@ -121,14 +121,14 @@ disableBtn.addEventListener('click', methods.disable);
 /* 1 */
 /***/ (function(module, exports) {
 
-const stickyfier = (headlineContainers, listContainers) => {
+const stickyfier = function(headlineContainers, listContainers) {
   //The headline container's parent element is also needed to correctly identify the distances between the texts
 
   //the private function that stickyfies the headlines
-  const fixedHeadline = () => {
+  const fixedHeadline = function() {
 
       //a for loop is used to keep track of every element in the DOM collection
-      headlineContainers.forEach((container, i) => {
+      headlineContainers.forEach(function(container, i) {
       //for (let i = 0; i < headlineContainers.length; i++) {
           const headlineContainer = headlineContainers[i];
           const headlineContainerTop = headlineContainer.getBoundingClientRect().top + window.scrollY;
@@ -138,6 +138,11 @@ const stickyfier = (headlineContainers, listContainers) => {
               //it's really important to add headline container's height to the padding of its parent element
               //in order to avoid the jumping of the text content once the fixed element leaves the regular DOM flow
               listEntry.style.paddingTop = headlineContainer.getBoundingClientRect().height + 'px';
+              
+              if(headlineContainers[i - 1] != undefined) {
+                headlineContainers[i - 1].classList.remove('fixed-nav');
+              }
+              
               headlineContainer.classList.add('fixed-nav');
           } else {
               listEntry.style.paddingTop = 0;
@@ -174,11 +179,11 @@ const stickyfier = (headlineContainers, listContainers) => {
           window.removeEventListener('scroll', handler);
           preventFire = false;
           //once the event lisntener is removed, the attached classes have to go too
-          headlineContainers.forEach(element => {
+          headlineContainers.forEach(function(element) {
             element.classList.remove('fixed-nav');
           });
           //restoring the listContainers' padding
-          listContainers.forEach(listEntry => {
+          listContainers.forEach(function(listEntry) {
               listEntry.style.paddingTop = 0;
           });
       },
