@@ -126,7 +126,8 @@ const stickyfier = (headlineContainers, listContainers) => {
   const fixedHeadline = () => {
 
       //a for loop is used to keep track of every element in the DOM collection
-      for (var i = 0; i < headlineContainers.length; i++) {
+      headlineContainers.forEach((container, i) => {
+      //for (let i = 0; i < headlineContainers.length; i++) {
           const headlineContainer = headlineContainers[i];
           const headlineContainerTop = headlineContainer.getBoundingClientRect().top + window.scrollY;
           const listEntry = listContainers[i];
@@ -140,7 +141,7 @@ const stickyfier = (headlineContainers, listContainers) => {
               listEntry.style.paddingTop = 0;
               headlineContainer.classList.remove('fixed-nav');
           }
-      }
+      });
   }
 
   let handler;
